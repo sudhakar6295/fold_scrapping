@@ -33,7 +33,7 @@ class Image(Base):
   
 
 # Define your database connection
-engine = create_engine('mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/FOLD')
+engine = create_engine('mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29/FOLD')
 
 # Create the tables
 Base.metadata.create_all(engine)
