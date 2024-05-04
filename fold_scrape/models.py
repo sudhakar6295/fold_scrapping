@@ -35,7 +35,7 @@ class Image(Base):
 # Define your database connection
 #engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold')
 engine = create_engine("mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold?charset=utf8mb4")
-import pdb;pdb.set_trace()
+
 
 # Create the tables
 Base.metadata.create_all(engine)
