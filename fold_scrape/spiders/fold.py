@@ -1,5 +1,5 @@
 import scrapy,json
-
+import os,requests
 
 class FoldSpider(scrapy.Spider):
     name = "fold"
@@ -20,6 +20,31 @@ class FoldSpider(scrapy.Spider):
             
             yield scrapy.Request(abs_url, callback=self.parse_product)
     
+    def check_file_in_folder(self,folder, file):
+        # Check if the file exists in the given folder
+        if os.path.exists(os.path.join(folder,file)):
+            return True
+        else:
+            return False
+
+    def save_image(self, temp_images,folder="Image"):
+        for url in temp_images:
+            abs_url = url
+            if not os.path.exists(folder):
+                        os.makedirs(folder)
+            file_exits = self.check_file_in_folder(folder, url)
+            if  file_exits:
+                continue
+            file_name = url.split('/')[-1]
+            filepath = os.path.join(folder,file_name)
+            
+            response = requests.get(abs_url)
+            if response.status_code == 200:
+                with open(filepath, 'wb') as f:
+                    f.write(response.content)
+                    print(f"Image saved as {filepath}")
+            else:
+                print(f"Failed to download image from {filepath}")   
     def parse_product(self, response):
 
         
@@ -48,7 +73,9 @@ class FoldSpider(scrapy.Spider):
         Non_slip_legs = response.xpath('//p//text()[contains(.,"Non-slip legs:")]').get()
         images = json_data.get('image')
         category = response.xpath('//*[@class="breadcrumb-item"]/a//text()').extract()[-1]
-
+        if category:
+            category = category.strip()
+        self.save_image(images)
         item = {
             'url': response.url,
             'name': name,

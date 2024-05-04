@@ -20,7 +20,7 @@ class Product(Base):
     Material = Column(String(100))
     Non_slip_legs = Column(String(5))
     category = Column(String(100))
-    LastScrappeddate = Column(DateTime, default=func.now())
+    LastScrappeddate = Column(DateTime, onupdate=func.now())
     Updateddate = Column(DateTime, onupdate=func.now())
     Createddate = Column(DateTime, default=func.now())
     Status = Column(String(50))
@@ -33,8 +33,9 @@ class Image(Base):
   
 
 # Define your database connection
-engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold')
-
+#engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold')
+engine = create_engine("mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold?charset=utf8mb4")
+import pdb;pdb.set_trace()
 
 # Create the tables
 Base.metadata.create_all(engine)
