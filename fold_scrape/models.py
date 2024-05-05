@@ -24,6 +24,7 @@ class Product(Base):
     Updateddate = Column(DateTime, onupdate=func.now())
     Createddate = Column(DateTime, default=func.now())
     Status = Column(String(50))
+    main_image_url = Column(String(255))
 
 class Image(Base):
     __tablename__ = 'images'

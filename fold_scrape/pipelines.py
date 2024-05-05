@@ -10,16 +10,21 @@ from sqlalchemy.orm import sessionmaker
 from fold_scrape.models import Image,Product
 
 
+
 class FoldScrapePipeline:
     def  __init__(self):
-        engine = create_engine("mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold?charset=utf8mb4")
+        #engine = create_engine("mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold?charset=utf8mb4")
+        engine = create_engine("mysql://root:sudhakar@localhost/fold?charset=utf8mb4")
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
        
         # Create a session
         session = self.Session()
-
+        try:
+            main_image_url = item['images'][0].split('/')[-1]
+        except Exception as e:
+            main_image_url = None
         try:
             # Query the database for the record you want to update
             record = session.query(Product).filter_by(sku=item['sku']).first()
@@ -31,6 +36,7 @@ class FoldScrapePipeline:
                 record.category = item['category']
                 record.description = item['description']
                 record.url = item['url']
+                record.main_image_url = main_image_url
                 # Commit the changes to the database
                 session.commit()
                 spider.logger.info("Record updated successfully.")
@@ -46,7 +52,8 @@ class FoldScrapePipeline:
                 Capacity = item['Capacity'],
                 Material = item['Material'],
                 Non_slip_legs = item['Non_slip_legs'],
-                category = item['category'],)
+                category = item['category'],
+                main_image_url = main_image_url )
                 
                 # Add more columns and values as needed
             
@@ -66,14 +73,14 @@ class FoldScrapePipeline:
         try:
             for image in images:
                 image_value = image.split('/')[-1]
-                img_record = session.query(Image).filter_by(image_url=image_value).first()
+                img_record = session.query(Image).filter_by(image_url = image_value).first()
                 if not img_record:
                     image_record = Image(image_url = image_value, sku = item['sku'])
                     session.add(image_record)
                     session.commit()
                     spider.logger.info("Image record created successfully.")
                 else:
-                    img_record.price = image_value
+                    img_record.image_url = image_value
                     session.add(img_record)
                     session.commit()
                     spider.logger.info("Image updated.")
