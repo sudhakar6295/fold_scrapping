@@ -14,7 +14,7 @@ from fold_scrape.models import Image,Product
 class FoldScrapePipeline:
     def  __init__(self):
         #engine = create_engine("mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold?charset=utf8mb4")
-        engine = create_engine("mysql://root:sudhakar@localhost/fold?charset=utf8mb4")
+        engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@localhost/fold')
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
