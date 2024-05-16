@@ -56,6 +56,14 @@ class FoldSpider(scrapy.Spider):
     def parse_product(self, response):
 
         original_price = response.meta.get('original_price')
+        if original_price:
+            # Remove '$' and '.' from the string
+            try:
+                original_price = original_price.replace('$', '').replace('.', '')
+                original_price = int(original_price)
+            except:
+                original_price = None
+
         json_str = response.xpath('//*[@data-schema="Product"]/text()').get()
         json_data = json.loads(json_str)
 
