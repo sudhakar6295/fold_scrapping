@@ -103,7 +103,7 @@ class FoldSpider(scrapy.Spider):
             'category': category,
             'tube_diameter':clean_text(tube_diameter),
             'maximum_height':clean_text(maximum_height),
-            'Base':clean_text(Base)
+            'base':clean_text(Base)
             
         }    
 

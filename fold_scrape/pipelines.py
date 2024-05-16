@@ -38,7 +38,12 @@ class FoldScrapePipeline:
                 record.url = item['url']
                 record.tube_diameter = item['tube_diameter']
                 record.maximum_height = item['maximum_height']
-                record.Base = item['Base']
+                record.base = item['base']
+                record.Size = item['Size'],
+                record.Weight = item['Weight'],
+                record.Capacity = item['Capacity'],
+                record.Material = item['Material'],
+                record.Non_slip_legs = item['Non_slip_legs'],
                 record.main_image_url = main_image_url
                 # Commit the changes to the database
                 session.commit()
@@ -56,7 +61,10 @@ class FoldScrapePipeline:
                 Material = item['Material'],
                 Non_slip_legs = item['Non_slip_legs'],
                 category = item['category'],
-                main_image_url = main_image_url )
+                main_image_url = main_image_url,
+                tube_diameter = item['tube_diameter'],
+                maximum_height = item['maximum_height'],
+                base = item['base'] )
                 
                 # Add more columns and values as needed
             
