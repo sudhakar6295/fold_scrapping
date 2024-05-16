@@ -68,7 +68,8 @@ class FoldSpider(scrapy.Spider):
 
         Size = response.xpath('//p//text()[contains(.,"Tamaño:")]').get()
         Weight = response.xpath('//p//text()[contains(.,"Peso:")]').get()
-        Capacity = response.xpath('//p//text()[contains(.,"Capacity:")]').get()
+        Capacity = response.xpath('//p//text()[contains(.,"Capacidad:")]').get()
+        color = response.xpath('//p//text()[contains(.,"Color:")]').get()
         Material = response.xpath('//p//text()[contains(.,"Material:")]').get()
         Non_slip_legs = response.xpath('//p//text()[contains(.,"Non-slip legs:")]').get()
         tube_diameter = response.xpath('//p//text()[contains(.,"Diámetro Tubo:")]').get()
@@ -103,7 +104,8 @@ class FoldSpider(scrapy.Spider):
             'category': category,
             'tube_diameter':clean_text(tube_diameter),
             'maximum_height':clean_text(maximum_height),
-            'base':clean_text(Base)
+            'base':clean_text(Base),
+            'color':clean_text(color)
             
         }    
 
