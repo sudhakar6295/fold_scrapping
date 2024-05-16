@@ -23,7 +23,8 @@ class FoldSpider(scrapy.Spider):
         #Pagination
         next_page_url = response.xpath('//li[@class="page-item active"]/following-sibling::li/a/@href').get()
         if next_page_url:
-            yield scrapy.Request(next_page_url, callback=self.parse_category)
+            next_abs_url = "https://www.fold.cl"+next_page_url
+            yield scrapy.Request(next_abs_url, callback=self.parse_category)
     
     def check_file_in_folder(self,folder, file):
         # Check if the file exists in the given folder
