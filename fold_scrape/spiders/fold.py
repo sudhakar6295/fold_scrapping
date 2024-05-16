@@ -14,11 +14,13 @@ class FoldSpider(scrapy.Spider):
             yield scrapy.Request(abs_url, callback=self.parse_category)
 
     def parse_category(self, response):
-        products_url = response.xpath('//*[@class="bs-collection__product-title"]/a/@href').extract()
-        for product_url in products_url:
+        products_url = response.xpath('//*[@class="grid__item"]')
+        for products in products_url:
+            product_url = products.xpath('.//*[@class="bs-collection__product-title"]a/@href').get()
+            original_price = products.xpath('.//*[@class="bs-collection__product-old-price"]/text()[contains(.,"$")]').get()
             abs_url = "https://www.fold.cl"+product_url
             
-            yield scrapy.Request(abs_url, callback=self.parse_product)
+            yield scrapy.Request(abs_url, callback=self.parse_product,meta={'original_price':original_price})
 
         #Pagination
         next_page_url = response.xpath('//li[@class="page-item active"]/following-sibling::li/a/@href').get()
@@ -53,12 +55,12 @@ class FoldSpider(scrapy.Spider):
                 print(f"Failed to download image from {filepath}")   
     def parse_product(self, response):
 
-        
+        original_price = response.meta.get('original_price')
         json_str = response.xpath('//*[@data-schema="Product"]/text()').get()
         json_data = json.loads(json_str)
 
         name = response.xpath('//*[@class="bs-product__title"]/text()').extract_first()
-        original_price = response.xpath('//*[@class="bs-product__original-price"]//text()[contains(.,"$")]').get()
+        #original_price = response.xpath('//*[@class="bs-product__original-price"]//text()[contains(.,"$")]').get()
         price = response.xpath('//*[@class="bs-product__final-price"]/text()').extract()  
         description = json_data.get('description')
         sku = json_data.get('sku')
