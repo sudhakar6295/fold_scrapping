@@ -58,7 +58,7 @@ class FoldSpider(scrapy.Spider):
         json_data = json.loads(json_str)
 
         name = response.xpath('//*[@class="bs-product__title"]/text()').extract_first()
-        original_price = response.xpath('//*[@class="bs-product__original-price"]//text()[contains(.,"$")]').extract()
+        original_price = response.xpath('//*[@class="bs-product__original-price"]//text()[contains(.,"$")]').get()
         price = response.xpath('//*[@class="bs-product__final-price"]/text()').extract()  
         description = json_data.get('description')
         sku = json_data.get('sku')
