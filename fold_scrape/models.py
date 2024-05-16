@@ -13,6 +13,7 @@ class Product(Base):
     url = Column(String(255))
     name = Column(String(255))
     price = Column(DECIMAL(10, 2))
+    original_price = Column(DECIMAL(10, 2))
     description = Column(Text)
     Size = Column(String(50))
     Weight = Column(String(50))
