@@ -16,7 +16,7 @@ class FoldSpider(scrapy.Spider):
     def parse_category(self, response):
         products_url = response.xpath('//*[@class="grid__item"]')
         for products in products_url:
-            product_url = products.xpath('.//*[@class="bs-collection__product-title"]a/@href').get()
+            product_url = products.xpath('.//*[@class="bs-collection__product-title"]/a/@href').get()
             original_price = products.xpath('.//*[@class="bs-collection__product-old-price"]/text()[contains(.,"$")]').get()
             abs_url = "https://www.fold.cl"+product_url
             
