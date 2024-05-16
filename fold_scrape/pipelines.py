@@ -36,6 +36,9 @@ class FoldScrapePipeline:
                 record.category = item['category']
                 record.description = item['description']
                 record.url = item['url']
+                record.tube_diameter = item['tube_diameter']
+                record.maximum_height = item['maximum_height']
+                record.Base = item['Base']
                 record.main_image_url = main_image_url
                 # Commit the changes to the database
                 session.commit()

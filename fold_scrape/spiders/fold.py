@@ -66,12 +66,24 @@ class FoldSpider(scrapy.Spider):
                 return text
  
 
-        Size = response.xpath('//p//text()[contains(.,"Size:")]').get()
-        Weight = response.xpath('//p//text()[contains(.,"Weight:")]').get()
+        Size = response.xpath('//p//text()[contains(.,"Tamaño:")]').get()
+        Weight = response.xpath('//p//text()[contains(.,"Peso:")]').get()
         Capacity = response.xpath('//p//text()[contains(.,"Capacity:")]').get()
         Material = response.xpath('//p//text()[contains(.,"Material:")]').get()
         Non_slip_legs = response.xpath('//p//text()[contains(.,"Non-slip legs:")]').get()
+        tube_diameter = response.xpath('//p//text()[contains(.,"Diámetro Tubo:")]').get()
+        maximum_height  = response.xpath('//p//text()[contains(.,"Altura MáximaBase:")]').get()
+        Base= response.xpath('//p//text()[contains(.,"Base:")]').get()
+
+
+
+
+
         images = json_data.get('image')
+
+
+
+
         category = response.xpath('//*[@class="breadcrumb-item"]/a//text()').extract()[-1]
         if category:
             category = category.strip()
@@ -89,6 +101,9 @@ class FoldSpider(scrapy.Spider):
             'Non_slip_legs': clean_text(Non_slip_legs),
             'images': images,
             'category': category,
+            'tube_diameter':clean_text(tube_diameter),
+            'maximum_height':clean_text(maximum_height),
+            'Base':clean_text(Base)
             
         }    
 
