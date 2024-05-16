@@ -15,10 +15,11 @@ class FoldScrapePipeline:
     def  __init__(self):
 
         engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@localhost/fold')
+        #engine = create_engine('mysql://root:sudhakar@localhost/fold')
         self.Session = sessionmaker(bind=engine)
 
     def process_item(self, item, spider):
-       
+
         # Create a session
         session = self.Session()
         try:
