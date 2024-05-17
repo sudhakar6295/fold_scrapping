@@ -86,9 +86,14 @@ class FoldSpider(scrapy.Spider):
         Size = response.xpath('//p//text()[contains(.,"Tamaño:")]').get()
         if not Size:
             Size = response.xpath('//strong[contains(.,"Tamaño")]/following-sibling::text()').get()
+        if not Size:
+            Size = response.xpath('//li[contains(.,"Talla")]/text()').get()
+
         Weight = response.xpath('//p//text()[contains(.,"Peso:")]').get()
         if not Weight:
             Weight = response.xpath('//strong[contains(.,"Peso")]/following-sibling::text()').get()
+        if not Weight:
+            Weight = response.xpath('//li[contains(.,"Peso")]/text()').get()
         Capacity = response.xpath('//p//text()[contains(.,"Capacidad:")]').get()
         if not Capacity:
             Capacity = response.xpath('//strong[contains(.,"Capacidad")]/following-sibling::text()').get()
@@ -110,6 +115,10 @@ class FoldSpider(scrapy.Spider):
         Base= response.xpath('//p//text()[contains(.,"Base:")]').get()
         if not Base:    
             Base = response.xpath('//strong[contains(.,"Base")]/following-sibling::text()').get()
+        if not Base:
+            Base = response.xpath('//li[contains(.,"Bases :")]/text()').get()
+
+        Seat_Height = response.xpath('//li[contains(.,"Altura De Asiento")]/text()').get()
 
         images = json_data.get('image')
 
@@ -134,7 +143,8 @@ class FoldSpider(scrapy.Spider):
             'tube_diameter':clean_text(tube_diameter),
             'maximum_height':clean_text(maximum_height),
             'base':clean_text(Base),
-            'color':clean_text(color)
+            'color':clean_text(color),
+            'Seat_Height':clean_text(Seat_Height)
             
         }    
 

@@ -48,6 +48,7 @@ class FoldScrapePipeline:
                 record.main_image_url = main_image_url
                 record.color = item['color']
                 record.original_price = item['original_price']
+                record.Seat_Height = item['Seat_Height']
                 # Commit the changes to the database
                 session.commit()
                 spider.logger.info("Record updated successfully.")
@@ -69,7 +70,8 @@ class FoldScrapePipeline:
                 maximum_height = item['maximum_height'],
                 base = item['base'],
                 color = item['color'],
-                original_price = item['original_price'],)
+                original_price = item['original_price'],
+                Seat_Height = item['Seat_Height'])
                 
                 # Add more columns and values as needed
             

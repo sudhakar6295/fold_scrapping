@@ -30,6 +30,7 @@ class Product(Base):
     Status = Column(String(50))
     color = Column(String(50))
     main_image_url = Column(String(255))
+    Seat_Height = Column(String(50))
 
 class Image(Base):
     __tablename__ = 'images'
