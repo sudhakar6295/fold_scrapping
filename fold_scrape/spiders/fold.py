@@ -124,6 +124,8 @@ class FoldSpider(scrapy.Spider):
 
         Contains = response.xpath('//td[contains(.,"Contains")]/following-sibling::td//text()').get()
 
+        Exhausted = response.xpath("//text()[contains(.,'Exhausted.')]").get()
+
         images = json_data.get('image')
 
         category = response.xpath('//*[@class="breadcrumb-item"]/a//text()').extract()[-1]
@@ -149,7 +151,8 @@ class FoldSpider(scrapy.Spider):
             'maximum_height':clean_text(maximum_height),
             'base':clean_text(Base),
             'color':clean_text(color),
-            'Seat_Height':clean_text(Seat_Height)
+            'Seat_Height':clean_text(Seat_Height),
+            'Exhausted':clean_text(Exhausted)
             
         }    
 

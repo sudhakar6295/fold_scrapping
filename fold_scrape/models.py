@@ -35,6 +35,7 @@ class Product(Base):
     main_image_url = Column(String(255))
     Seat_Height = Column(String(50))
     Contains = Column(Text)
+    Exhausted = Column(String(50))
 
 class Image(Base):
     __tablename__ = 'images'
