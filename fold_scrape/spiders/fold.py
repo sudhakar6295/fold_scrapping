@@ -103,6 +103,8 @@ class FoldSpider(scrapy.Spider):
         Material = response.xpath('//p//text()[contains(.,"Material:")]').get()
         if not Material:
             Material = response.xpath('//strong[contains(.,"Material")]/following-sibling::text()').get()
+        if not Material:
+            Material = response.xpath('//td[contains(.,"Material")]/following-sibling::td//text()').get()
         Non_slip_legs = response.xpath('//p//text()[contains(.,"Non-slip legs:")]').get()
         if not Non_slip_legs:    
             Non_slip_legs = response.xpath('//strong[contains(.,"Non-slip legs")]/following-sibling::text()').get()
@@ -119,6 +121,8 @@ class FoldSpider(scrapy.Spider):
             Base = response.xpath('//li[contains(.,"Bases :")]/text()').get()
 
         Seat_Height = response.xpath('//li[contains(.,"Altura De Asiento")]/text()').get()
+
+        Conatains = response.xpath('//td[contains(.,"Contains")]/following-sibling::td//text()').get()
 
         images = json_data.get('image')
 
@@ -138,6 +142,7 @@ class FoldSpider(scrapy.Spider):
             'Capacity': clean_text(Capacity),
             'Material': clean_text(Material),
             'Non_slip_legs': clean_text(Non_slip_legs),
+            'Conatains':clean_text(Conatains),
             'images': images,
             'category': category,
             'tube_diameter':clean_text(tube_diameter),
