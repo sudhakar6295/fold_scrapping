@@ -48,7 +48,7 @@ class FoldScrapePipeline:
                 record.main_image_url = main_image_url
                 record.color = item['color']
                 record.Contains = item['Contains']
-                record.Exhausted = item['Exhausted']
+                record.stock = item['stock']
                 record.original_price = item['original_price']
                 record.Seat_Height = item['Seat_Height']
                 # Commit the changes to the database
@@ -75,7 +75,7 @@ class FoldScrapePipeline:
                 Contains = item['Contains'],
                 original_price = item['original_price'],
                 Seat_Height = item['Seat_Height'],
-                Exhausted = item['Exhausted'])
+                stock = item['stock'])
                 
                 # Add more columns and values as needed
             

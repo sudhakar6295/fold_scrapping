@@ -124,7 +124,7 @@ class FoldSpider(scrapy.Spider):
 
         Contains = response.xpath('//td[contains(.,"Contiene")]/following-sibling::td//text()').get()
 
-        Exhausted = response.xpath("//text()[contains(.,'Agotado')]").get()
+        stock = response.xpath('//*[@class="bs-product__stock"]/span//text()').get()
 
         images = json_data.get('image')
 
@@ -152,7 +152,7 @@ class FoldSpider(scrapy.Spider):
             'base':clean_text(Base),
             'color':clean_text(color),
             'Seat_Height':clean_text(Seat_Height),
-            'Exhausted':clean_text(Exhausted)
+            'stock':clean_text(stock)
             
         }    
 
