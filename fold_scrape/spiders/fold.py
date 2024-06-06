@@ -73,6 +73,19 @@ class FoldSpider(scrapy.Spider):
         description = json_data.get('description')
         sku = json_data.get('sku')
         price = json_data.get('offers').get('price')
+        try:
+            json_str1 = response.xpath(".//script[contains(.,'\"stock\":')]/text()").get()
+            if json_str1:
+                json_str1 = json_str1.strip()
+            json_datas1 = json.loads(json_str1)
+
+            stock = None
+            for json_data1 in json_datas1:
+                stock = json_data1.get('stock')[0].get('quantity')
+                if stock:
+                    break
+        except Exception as e:
+            stock = None
 
         def clean_text(text):
             try:
@@ -124,7 +137,7 @@ class FoldSpider(scrapy.Spider):
 
         Contains = response.xpath('//td[contains(.,"Contiene")]/following-sibling::td//text()').get()
 
-        stock =  response.xpath('//*[@class="bs-collection__stock"]/text()').get()
+        #stock =  response.xpath('//*[@class="bs-collection__stock"]/text()').get()
 
         images = json_data.get('image')
 
