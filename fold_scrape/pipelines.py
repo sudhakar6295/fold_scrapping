@@ -47,6 +47,7 @@ class FoldScrapePipeline:
                 record.Non_slip_legs = item['Non_slip_legs']
                 record.main_image_url = main_image_url
                 record.color = item['color']
+                record.Contains = item['Contains']
                 record.original_price = item['original_price']
                 record.Seat_Height = item['Seat_Height']
                 # Commit the changes to the database
@@ -70,6 +71,7 @@ class FoldScrapePipeline:
                 maximum_height = item['maximum_height'],
                 base = item['base'],
                 color = item['color'],
+                Contains = item['Contains'],
                 original_price = item['original_price'],
                 Seat_Height = item['Seat_Height'])
                 
