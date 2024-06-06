@@ -124,7 +124,7 @@ class FoldSpider(scrapy.Spider):
 
         Contains = response.xpath('//td[contains(.,"Contiene")]/following-sibling::td//text()').get()
 
-        stock = response.xpath('//*[@class="bs-product__stock"]/span//text()').get()
+        stock =  response.xpath('//*[@class="bs-collection__stock"]/text()').get()
 
         images = json_data.get('image')
 
