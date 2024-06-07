@@ -36,6 +36,8 @@ class Product(Base):
     Seat_Height = Column(String(50))
     Contains = Column(Text)
     stock = Column(String(50))
+    Height = Column(String(50))
+    Packing = Column(String(50))
 
 class Image(Base):
     __tablename__ = 'images'
@@ -46,7 +48,7 @@ class Image(Base):
 
 # Define your database connection
 engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@localhost/fold')
-#engine = create_engine("mysql+pymysql://fold:XLqV6yPnwklZvNVL@170.239.84.29:22222/fold?charset=utf8mb4")
+#engine = create_engine('mysql://root:sudhakar@localhost/fold')
 
 
 # Create the tables

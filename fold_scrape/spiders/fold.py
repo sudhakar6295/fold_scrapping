@@ -100,6 +100,8 @@ class FoldSpider(scrapy.Spider):
         if not Size:
             Size = response.xpath('//strong[contains(.,"Tamaño")]/following-sibling::text()').get()
         if not Size:
+            Size = response.xpath('//td[contains(.,"Tamaño")]/following-sibling::td/text()').get()
+        if not Size:
             Size = response.xpath('//li[contains(.,"Talla")]/text()').get()
 
         Weight = response.xpath('//p//text()[contains(.,"Peso:")]').get()
@@ -107,17 +109,29 @@ class FoldSpider(scrapy.Spider):
             Weight = response.xpath('//strong[contains(.,"Peso")]/following-sibling::text()').get()
         if not Weight:
             Weight = response.xpath('//li[contains(.,"Peso")]/text()').get()
+        if not Weight:
+            Weight = response.xpath('//td[contains(.,"Peso:")]/following-sibling::td/text()').get()
+
+
+
         Capacity = response.xpath('//p//text()[contains(.,"Capacidad:")]').get()
         if not Capacity:
             Capacity = response.xpath('//strong[contains(.,"Capacidad")]/following-sibling::text()').get()
         color = response.xpath('//p//text()[contains(.,"Color:")]').get()
         if not color:
             color = response.xpath('//strong[contains(.,"Color")]/following-sibling::text()').get()
+
         Material = response.xpath('//p//text()[contains(.,"Material:")]').get()
         if not Material:
             Material = response.xpath('//strong[contains(.,"Material")]/following-sibling::text()').get()
         if not Material:
             Material = response.xpath('//td[contains(.,"Material")]/following-sibling::td//text()').get()
+        if not Material:
+            Material = response.xpath('//td[contains(.,"Material:")]/following-sibling::td/text()').get()
+
+        Height = response.xpath('//strong[contains(.,"Altura")]/following-sibling::text()').get()
+
+
         Non_slip_legs = response.xpath('//p//text()[contains(.,"Non-slip legs:")]').get()
         if not Non_slip_legs:    
             Non_slip_legs = response.xpath('//strong[contains(.,"Non-slip legs")]/following-sibling::text()').get()
@@ -136,6 +150,8 @@ class FoldSpider(scrapy.Spider):
         Seat_Height = response.xpath('//li[contains(.,"Altura De Asiento")]/text()').get()
 
         Contains = response.xpath('//td[contains(.,"Contiene")]/following-sibling::td//text()').get()
+
+        Packing = response.xpath('//td[contains(.,"Empaque:")]/following-sibling::td/text()').get()
 
         #stock =  response.xpath('//*[@class="bs-collection__stock"]/text()').get()
 
@@ -165,7 +181,10 @@ class FoldSpider(scrapy.Spider):
             'base':clean_text(Base),
             'color':clean_text(color),
             'Seat_Height':clean_text(Seat_Height),
-            'stock':clean_text(stock)
+            'stock':clean_text(stock),
+            'Height':clean_text(Height),
+            'Packing':clean_text(Packing)
+
             
         }    
 
