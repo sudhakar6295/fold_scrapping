@@ -10,3 +10,6 @@ cd /home/fold/fold_scrapping
 scrapy crawl fold
 
 
+
+
+
