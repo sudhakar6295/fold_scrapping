@@ -38,6 +38,7 @@ class Product(Base):
     stock = Column(String(50))
     Height = Column(String(50))
     Packing = Column(String(50))
+    Observations = Column(String(50))
 
 class Image(Base):
     __tablename__ = 'images'

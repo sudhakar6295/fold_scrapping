@@ -53,6 +53,7 @@ class FoldScrapePipeline:
                 record.Seat_Height = item['Seat_Height']
                 record.Height = item['Height']
                 record.Packing = item['Packing']
+                record.Observations = item['Observations']
                 # Commit the changes to the database
                 session.commit()
                 spider.logger.info("Record updated successfully.")
@@ -79,7 +80,8 @@ class FoldScrapePipeline:
                 Seat_Height = item['Seat_Height'],
                 Height = item['Height'],
                 Packing = item['Packing'],
-                stock = item['stock'])
+                stock = item['stock'],
+                Observations = item['Observations'],)
                 
                 # Add more columns and values as needed
             
