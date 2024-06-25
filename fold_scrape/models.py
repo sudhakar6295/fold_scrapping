@@ -18,7 +18,7 @@ class Product(Base):
     price = Column(DECIMAL(10, 2))
     original_price = Column(DECIMAL(10, 2))
     description = Column(Text)
-    Size = Column(String(50))
+    Size = Column(String(200))
     Weight = Column(String(50))
     tube_diameter = Column(String(50))
     maximum_height = Column(String(50))

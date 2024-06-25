@@ -1,11 +1,12 @@
 import scrapy,json
 import os,requests
+import logging
 
 class FoldSpider(scrapy.Spider):
     name = "fold"
     #allowed_domains = ["www.fold.cl"]
     start_urls = ["https://www.fold.cl/"]
-
+        
     def parse(self, response):
         categorys=response.xpath('//*[@class="bs-menu__lv2"]/@href').extract()
         for category in categorys:
@@ -170,6 +171,7 @@ class FoldSpider(scrapy.Spider):
         if category:
             category = category.strip()
         self.save_image(images)
+
         item = {
             'url': response.url,
             'name': name,

@@ -8,6 +8,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from fold_scrape.models import Image,Product
+import logging
 
 
 
@@ -55,7 +56,10 @@ class FoldScrapePipeline:
                 record.Packing = item['Packing']
                 record.Observations = item['Observations']
                 # Commit the changes to the database
-                session.commit()
+                try:
+                    session.commit()
+                except Exception as e:
+                    self.logger.error(f'update failure{e}')
                 spider.logger.info("Record updated successfully.")
             else:
                 new_record = Product(
@@ -84,12 +88,14 @@ class FoldScrapePipeline:
                 Observations = item['Observations'],)
                 
                 # Add more columns and values as needed
-            
-                # Add the new record to the session
-                session.add(new_record)
-                
-                # Commit the changes to the database
-                session.commit()
+                try:
+                    # Add the new record to the session
+                    session.add(new_record)
+                    
+                    # Commit the changes to the database
+                    session.commit()
+                except Exception as e:
+                    self.logger.error(f'New failure{e}')
                 spider.logger.info("New record created successfully.")
         except Exception as e:
             # Rollback the changes in case of an error

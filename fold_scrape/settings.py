@@ -20,12 +20,12 @@ NEWSPIDER_MODULE = "fold_scrape.spiders"
 ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 1
+CONCURRENT_REQUESTS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -95,3 +95,54 @@ FEED_EXPORT_ENCODING = "utf-8"
 ITEM_PIPELINES = {
     'fold_scrape.pipelines.FoldScrapePipeline': 300,
 }
+
+import logging
+from logging.handlers import RotatingFileHandler
+
+LOG_ENABLED = True
+LOG_LEVEL = 'ERROR'  # You can set to 'INFO' or 'DEBUG' for more detailed logs
+
+# File for all logs
+LOG_FILE = 'scrapy_log.txt'
+
+# Additional handler for error logs
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(asctime)s %(name)s %(levelname)s: %(message)s',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'scrapy_log.txt',
+            'formatter': 'default',
+        },
+        'error_file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'scrapy_error_log.txt',
+            'formatter': 'default',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+    },
+    'root': {
+        'handlers': ['file', 'error_file', 'console'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        'scrapy': {
+            'handlers': ['file', 'error_file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
