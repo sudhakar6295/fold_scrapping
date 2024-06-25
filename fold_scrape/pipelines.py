@@ -15,6 +15,7 @@ import logging
 class FoldScrapePipeline:
     def  __init__(self):
 
+        self.logger = logging.getLogger('scrapy.pipelines')
         engine = create_engine('mariadb+mariadbconnector://fold:XLqV6yPnwklZvNVL@localhost/fold')
         #engine = create_engine('mysql://root:sudhakar@localhost/fold')
         self.Session = sessionmaker(bind=engine)
