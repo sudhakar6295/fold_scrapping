@@ -182,7 +182,7 @@ class FoldSpider(scrapy.Spider):
                 if len(spec_values) == 2:
                     spec[spec_values[0].replace(':','')] = spec_values[-1]
 
-            spec_rows1 = response.xpath('//*[@data-parent="#bs-product-description"]//p')
+            spec_rows1 = response.xpath('//*[@data-parent="#bs-product-description"]//p|//*[@data-parent="#bs-product-description"]//li')
 
             for spec_row1 in spec_rows1:
                 spec_value1 = spec_row1.xpath('.//text()').get()
