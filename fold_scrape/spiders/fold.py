@@ -8,6 +8,7 @@ class FoldSpider(scrapy.Spider):
     start_urls = ["https://www.fold.cl/"]
         
     def parse(self, response):
+        
         categorys=response.xpath('//*[@class="bs-menu__lv2"]/@href').extract()
         for category in categorys:
             abs_url = "https://www.fold.cl"+category

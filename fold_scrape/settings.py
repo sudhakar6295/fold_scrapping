@@ -7,6 +7,49 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+import logging
+from logging.handlers import TimedRotatingFileHandler
+import os
+import glob ,time
+
+# Function to delete old log files beyond 10 days
+def delete_old_logs(log_dir, file_pattern="*.log", days=10):
+    for log_file in glob.glob(os.path.join(log_dir, file_pattern)):
+        file_creation_time = os.path.getctime(log_file)
+        if (time.time() - file_creation_time) // (24 * 3600) >= days:
+            os.remove(log_file)
+
+# Directory to store log files
+LOG_DIR = 'logs'
+
+# Ensure the log directory exists
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+# Delete log files older than 10 days
+delete_old_logs(LOG_DIR)
+
+# Configure the logging settings
+LOG_LEVEL = 'ERROR'  # Only log errors and above
+LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+
+# Configure the logger
+logger = logging.getLogger()
+logger.setLevel(LOG_LEVEL)
+
+# Timed rotating file handler for creating a new log file every day
+log_file_handler = TimedRotatingFileHandler(
+    filename=os.path.join(LOG_DIR, 'scrapy_log.log'),
+    when='midnight',
+    interval=1,
+    backupCount=10  # Keep up to 10 backup log files
+)
+log_file_handler.setLevel(LOG_LEVEL)
+log_file_handler.setFormatter(logging.Formatter(fmt=LOG_FORMAT, datefmt=LOG_DATEFORMAT))
+logger.addHandler(log_file_handler)
+
+
 BOT_NAME = "fold_scrape"
 
 SPIDER_MODULES = ["fold_scrape.spiders"]
