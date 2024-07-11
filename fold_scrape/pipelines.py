@@ -11,7 +11,9 @@ from fold_scrape.models import Image,Product
 import logging
 
 
-
+class FoldScrapePipeline:
+    pass
+'''
 class FoldScrapePipeline:
     def  __init__(self):
 
@@ -129,3 +131,4 @@ class FoldScrapePipeline:
 
         return item
 
+'''
