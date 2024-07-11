@@ -56,6 +56,7 @@ class FoldScrapePipeline:
                 record.Height = item['Height']
                 record.Packing = item['Packing']
                 record.Observations = item['Observations']
+                record.Specification = item['Specification']
                 # Commit the changes to the database
                 try:
                     session.commit()
@@ -86,7 +87,8 @@ class FoldScrapePipeline:
                 Height = item['Height'],
                 Packing = item['Packing'],
                 stock = item['stock'],
-                Observations = item['Observations'],)
+                Observations = item['Observations'],
+                Specification = item['Specification'],)
                 
                 # Add more columns and values as needed
                 try:
