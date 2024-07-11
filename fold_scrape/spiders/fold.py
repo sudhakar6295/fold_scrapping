@@ -175,6 +175,22 @@ class FoldSpider(scrapy.Spider):
                 category = category.strip()
             self.save_image(images)
 
+            spec_rows = response.xpath('//*[@data-parent="#bs-product-description"]//table//tr')
+            spec = {}
+            for spec_row in spec_rows:
+                spec_values = spec_row.xpath('.//td/text()').extract()
+                if len(spec_values) == 2:
+                    spec[spec_values[0].replace(':','')] = spec_values[-1]
+
+            spec_rows1 = response.xpath('//*[@data-parent="#bs-product-description"]//p')
+
+            for spec_row1 in spec_rows1:
+                spec_value1 = spec_row1.xpath('.//text()').get()
+                if spec_value1 and ':' in spec_value1:
+                    spec_values1 = spec_value1.split(':')
+                    if len(spec_values1) == 2:
+                        spec[spec_values1[0].replace(':','')] = spec_values1[-1]
+
             item = {
                 'url': response.url,
                 'name': name,
@@ -198,7 +214,8 @@ class FoldSpider(scrapy.Spider):
                 'stock':clean_text(stock),
                 'Height':clean_text(Height),
                 'Packing':clean_text(Packing),
-                'Observations':clean_text(Observations)
+                'Observations':clean_text(Observations),
+                'Specification':spec
 
                 
             }    

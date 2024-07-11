@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, String, ForeignKey, Integer,DECIMAL,DateTime,Text
+from sqlalchemy import create_engine, Column, String, ForeignKey, Integer,DECIMAL,DateTime,Text,JSON
 from sqlalchemy.sql import func
 
 from sqlalchemy.orm import declarative_base
@@ -39,6 +39,7 @@ class Product(Base):
     Height = Column(String(50))
     Packing = Column(String(50))
     Observations = Column(String(50))
+    Specification = Column(JSON)
 
 class Image(Base):
     __tablename__ = 'images'
