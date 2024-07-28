@@ -1,6 +1,6 @@
 import scrapy,json
 import os,requests
-import logging
+import logging,re
 
 class FoldSpider(scrapy.Spider):
     name = "fold"
@@ -167,6 +167,32 @@ class FoldSpider(scrapy.Spider):
             #stock =  response.xpath('//*[@class="bs-collection__stock"]/text()').get()
             Observations  = response.xpath('//p//text()[contains(.,"Observaciones")]').get()
 
+            json_data = {}
+            spec_html = {}
+
+            data = response.xpath("//script[contains(.,' window.INIT.products.push({')]/text()").get()
+            json_str_match = re.search(r'window\.INIT\.products\.push\((\{.*?\})\);', data, re.DOTALL)
+            if json_str_match:
+                json_str = json_str_match.group(1)
+                
+                # Replace escaped unicode characters with actual characters
+                json_str = json_str.replace('\\u003c', '<').replace('\\u003e', '>').replace('\\u0026', '&')
+                
+                # Convert to proper JSON
+                try:
+                    json_data = json.loads(json_str)
+                    #print(json.dumps(json_data, indent=4))  # Pretty print JSON
+                except json.JSONDecodeError as e:
+                    print("Error decoding JSON:", e)
+            else:
+                print("No JSON-like structure found in the string.")
+
+            if json_data:
+                json_descriptions = json_data.get('product').get('descriptions')
+                if json_descriptions:
+                    json_name = json_descriptions[0].get('descriptionName')
+                    spec_html = json_descriptions[0].get('html')
+
 
             images = json_data.get('image')
 
@@ -215,7 +241,8 @@ class FoldSpider(scrapy.Spider):
                 'Height':clean_text(Height),
                 'Packing':clean_text(Packing),
                 'Observations':clean_text(Observations),
-                'Specification':spec
+                'Specification':spec,
+                'Sepcification_html':spec_html
 
                 
             }    
