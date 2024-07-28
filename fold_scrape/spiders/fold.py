@@ -90,6 +90,7 @@ class FoldSpider(scrapy.Spider):
                         break
             except Exception as e:
                 stock = None
+                final_stock = 0
 
             def clean_text(text):
                 try:
