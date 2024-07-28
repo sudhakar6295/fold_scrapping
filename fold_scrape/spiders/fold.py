@@ -75,6 +75,7 @@ class FoldSpider(scrapy.Spider):
             description = json_data.get('description')
             sku = json_data.get('sku')
             price = json_data.get('offers').get('price')
+            final_stock = 0
             try:
                 json_str1 = response.xpath(".//script[contains(.,'\"stock\":')]/text()").get()
                 if json_str1:
