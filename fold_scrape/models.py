@@ -40,6 +40,7 @@ class Product(Base):
     Packing = Column(String(50))
     Observations = Column(String(50))
     Specification = Column(JSON)
+    Specification_html = Column(Text)
 
 class Image(Base):
     __tablename__ = 'images'
