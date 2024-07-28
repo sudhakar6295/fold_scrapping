@@ -1,0 +1,120 @@
+2024-07-11 07:25:56 [twisted] CRITICAL: Unhandled error in Deferred:
+2024-07-11 07:25:56 [twisted] CRITICAL: 
+Traceback (most recent call last):
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 3304, in raw_connection
+    return self.pool.connect()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 1263, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\impl.py", line 180, in _do_get
+    self._dec_overflow()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    return self._create_connection()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 901, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\create.py", line 643, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 617, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\mariadb\__init__.py", line 146, in connect
+    connection = connectionclass(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\mariadb\connections.py", line 85, in __init__
+    super().__init__(*args, **kwargs)
+mariadb.OperationalError: Access denied for user 'fold'@'localhost' to database 'fold'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\twisted\internet\defer.py", line 1697, in _inlineCallbacks
+    result = context.run(gen.send, result)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\crawler.py", line 158, in crawl
+    self.engine = self._create_engine()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\crawler.py", line 172, in _create_engine
+    return ExecutionEngine(self, lambda _: self.stop())
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\core\engine.py", line 100, in __init__
+    self.scraper = Scraper(crawler)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\core\scraper.py", line 109, in __init__
+    self.itemproc: ItemPipelineManager = itemproc_cls.from_crawler(crawler)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\middleware.py", line 90, in from_crawler
+    return cls.from_settings(crawler.settings, crawler)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\middleware.py", line 66, in from_settings
+    mwcls = load_object(clspath)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\scrapy\utils\misc.py", line 79, in load_object
+    mod = import_module(module)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\importlib\__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 986, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 680, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 850, in exec_module
+  File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
+  File "G:\My Drive\1.Sudhakar\1.Scrapy\2.freelancer\fold\Scrapping\fold_scrape\fold_scrape\pipelines.py", line 10, in <module>
+    from fold_scrape.models import Image,Product
+  File "G:\My Drive\1.Sudhakar\1.Scrapy\2.freelancer\fold\Scrapping\fold_scrape\fold_scrape\models.py", line 56, in <module>
+    Base.metadata.create_all(engine)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\sql\schema.py", line 5825, in create_all
+    bind._run_ddl_visitor(
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 3254, in _run_ddl_visitor
+    with self.begin() as conn:
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\contextlib.py", line 119, in __enter__
+    return next(self.gen)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 3244, in begin
+    with self.connect() as conn:
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 3280, in connect
+    return self._connection_cls(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 148, in __init__
+    Connection._handle_dbapi_exception_noconnection(
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 2444, in _handle_dbapi_exception_noconnection
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 146, in __init__
+    self._dbapi_connection = engine.raw_connection()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\base.py", line 3304, in raw_connection
+    return self.pool.connect()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 449, in connect
+    return _ConnectionFairy._checkout(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 1263, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 712, in checkout
+    rec = pool._do_get()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\impl.py", line 180, in _do_get
+    self._dec_overflow()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\impl.py", line 177, in _do_get
+    return self._create_connection()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 390, in _create_connection
+    return _ConnectionRecord(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 674, in __init__
+    self.__connect()
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 901, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\util\langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\pool\base.py", line 896, in __connect
+    self.dbapi_connection = connection = pool._invoke_creator(self)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\create.py", line 643, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\sqlalchemy\engine\default.py", line 617, in connect
+    return self.loaded_dbapi.connect(*cargs, **cparams)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\mariadb\__init__.py", line 146, in connect
+    connection = connectionclass(*args, **kwargs)
+  File "C:\Users\LENOVO\AppData\Local\Programs\Python\Python39\lib\site-packages\mariadb\connections.py", line 85, in __init__
+    super().__init__(*args, **kwargs)
+sqlalchemy.exc.OperationalError: (mariadb.OperationalError) Access denied for user 'fold'@'localhost' to database 'fold'
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
