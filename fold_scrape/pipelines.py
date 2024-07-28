@@ -89,7 +89,8 @@ class FoldScrapePipeline:
                 Packing = item['Packing'],
                 stock = item['stock'],
                 Observations = item['Observations'],
-                Specification = item['Specification'],)
+                Specification = item['Specification'],
+                Specification_html = item['Sepcification_html'])
                 
                 # Add more columns and values as needed
                 try:

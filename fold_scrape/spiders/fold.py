@@ -57,8 +57,6 @@ class FoldSpider(scrapy.Spider):
                 print(f"Failed to download image from {filepath}")   
     def parse_product(self, response):
 
-        try:
-
             original_price = response.meta.get('original_price')
             if original_price:
                 # Remove '$' and '.' from the string
@@ -167,33 +165,7 @@ class FoldSpider(scrapy.Spider):
             #stock =  response.xpath('//*[@class="bs-collection__stock"]/text()').get()
             Observations  = response.xpath('//p//text()[contains(.,"Observaciones")]').get()
 
-            json_data = {}
-            spec_html = {}
-
-            data = response.xpath("//script[contains(.,' window.INIT.products.push({')]/text()").get()
-            json_str_match = re.search(r'window\.INIT\.products\.push\((\{.*?\})\);', data, re.DOTALL)
-            if json_str_match:
-                json_str = json_str_match.group(1)
-                
-                # Replace escaped unicode characters with actual characters
-                json_str = json_str.replace('\\u003c', '<').replace('\\u003e', '>').replace('\\u0026', '&')
-                
-                # Convert to proper JSON
-                try:
-                    json_data = json.loads(json_str)
-                    #print(json.dumps(json_data, indent=4))  # Pretty print JSON
-                except json.JSONDecodeError as e:
-                    print("Error decoding JSON:", e)
-            else:
-                print("No JSON-like structure found in the string.")
-
-            if json_data:
-                json_descriptions = json_data.get('product').get('descriptions')
-                if json_descriptions:
-                    json_name = json_descriptions[0].get('descriptionName')
-                    spec_html = json_descriptions[0].get('html')
-
-
+            
             images = json_data.get('image')
 
             category = response.xpath('//*[@class="breadcrumb-item"]/a//text()').extract()[-1]
@@ -216,6 +188,33 @@ class FoldSpider(scrapy.Spider):
                     spec_values1 = spec_value1.split(':')
                     if len(spec_values1) == 2:
                         spec[spec_values1[0].replace(':','')] = spec_values1[-1]
+
+            json_data_spec = {}
+            spec_html = None
+
+            data = response.xpath("//script[contains(.,' window.INIT.products.push({')]/text()").get()
+            json_str_match = re.search(r'window\.INIT\.products\.push\((\{.*?\})\);', data, re.DOTALL)
+            if json_str_match:
+                json_str = json_str_match.group(1)
+                
+                # Replace escaped unicode characters with actual characters
+                json_str = json_str.replace('\\u003c', '<').replace('\\u003e', '>').replace('\\u0026', '&')
+                
+                # Convert to proper JSON
+                try:
+                    json_data_spec = json.loads(json_str)
+                   
+                except json.JSONDecodeError as e:
+                    print("Error decoding JSON:", e)
+            else:
+                print("No JSON-like structure found in the string.")
+
+            if json_data_spec:
+                json_descriptions = json_data_spec.get('product').get('descriptions')
+                if json_descriptions:
+                    json_name = json_descriptions[0].get('descriptionName')
+                    if json_name.lower() == 'ficha técnica':
+                        spec_html = json_descriptions[0].get('html')
 
             item = {
                 'url': response.url,
@@ -248,5 +247,3 @@ class FoldSpider(scrapy.Spider):
             }    
 
             yield item
-        except Exception as e:
-            self.logger.error(f"Scrapping error{e}")
