@@ -84,7 +84,9 @@ class FoldSpider(scrapy.Spider):
                 stock = None
                 for json_data1 in json_datas1:
                     stock = json_data1.get('stock')[0].get('quantity')
-                    if stock:
+                    reserved = json_data1.get('stock')[0].get('quantityReserved')
+                    if stock :
+                        final_stock = stock - reserved
                         break
             except Exception as e:
                 stock = None
@@ -236,7 +238,7 @@ class FoldSpider(scrapy.Spider):
                 'base':clean_text(Base),
                 'color':clean_text(color),
                 'Seat_Height':clean_text(Seat_Height),
-                'stock':clean_text(stock),
+                'stock':clean_text(final_stock),
                 'Height':clean_text(Height),
                 'Packing':clean_text(Packing),
                 'Observations':clean_text(Observations),
