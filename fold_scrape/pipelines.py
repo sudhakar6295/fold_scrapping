@@ -57,6 +57,7 @@ class FoldScrapePipeline:
                 record.Packing = item['Packing']
                 record.Observations = item['Observations']
                 record.Specification = item['Specification']
+                record.Specification_html = item['Sepcification_html']
                 # Commit the changes to the database
                 try:
                     session.commit()
